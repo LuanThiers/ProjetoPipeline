@@ -12,6 +12,7 @@ module alu#(
         output logic[DATA_WIDTH-1:0] ALUResult
         );
     
+
         always_comb
         begin
             case(Operation)
@@ -28,10 +29,15 @@ module alu#(
 	    4'b0100:        // XOR
                     ALUResult = SrcA ^ SrcB;
 	    4'b0101:        // SLT
-                    ALUResult = SrcA << SrcB;
+                    ALUResult = (SrcA < SrcB) ? 1 : 0;
+            4'b0111:        // SRLI
+	            ALUResult = SrcA >> SrcB;
+            4'b1001:        // SLLI
+	            ALUResult = SrcA << SrcB;
+            4'b0110:        // LUI
+		    ALUResult = SrcB;
             default:
                     ALUResult = 0;
             endcase
         end
 endmodule
-
