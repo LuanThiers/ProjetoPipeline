@@ -24,7 +24,7 @@ module alu#(
 		    ALUResult = SrcA - SrcB;
 	    4'b0001:        // OR
 		    ALUResult = SrcA | SrcB;
-            4'b1000:        // Equal
+            4'b1000:        // BEQ
                     ALUResult = (SrcA == SrcB) ? 1 : 0;
 	    4'b0100:        // XOR
                     ALUResult = SrcA ^ SrcB;
@@ -36,8 +36,19 @@ module alu#(
 	            ALUResult = SrcA << SrcB;
             4'b0110:        // LUI
 		    ALUResult = SrcB;
+	    4'b1010:        //SRAI
+		    ALUResult = SrcA >>> SrcB;
+	    4'b0100:	    //NotEqual
+		    ALUResult = (SrcA != SrcB) ? 1 : 0;
+            4'b1100:	    //BLT
+		    ALUResult = (SrcA < SrcB) ? 1 : 0;
+	    4'b1111:	    //BGE
+		    ALUResult = ((SrcA > SrcB)||(SrcA == SrcB)) ? 1 : 0;
+	    4'b1101: 	    //JAL & JALR
+		    ALUResult = 1;
             default:
                     ALUResult = 0;
             endcase
         end
 endmodule
+
