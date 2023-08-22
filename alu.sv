@@ -12,6 +12,8 @@ module alu#(
         output logic[DATA_WIDTH-1:0] ALUResult
         );
     
+	logic sign_bit;
+	assign sign_bit = SrcA[31];
 
         always_comb
         begin
@@ -37,7 +39,7 @@ module alu#(
             4'b0110:        // LUI
 		    ALUResult = SrcB;
 	    4'b1010:        //SRAI
-		    ALUResult = SrcA >>> SrcB;
+		    ALUResult = $signed(SrcA) >>> SrcB[4:0];
 	    4'b0100:	    //NotEqual
 		    ALUResult = (SrcA != SrcB) ? 1 : 0;
             4'b1100:	    //BLT
