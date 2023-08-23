@@ -49,7 +49,7 @@ module datamemory #(
 	3'b000: //LB
 	rd <= $signed(auxOutS0);
 	3'b100: //LBU
-	rd <= $unsigned(auxOutS0);
+	rd <= {24'b0, auxOutS0};
 	3'b001:  //LH
 	rd <= $signed(aux2Out);
 

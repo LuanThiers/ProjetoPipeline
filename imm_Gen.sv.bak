@@ -10,9 +10,9 @@ module imm_Gen (
     case (inst_code[6:0])
 
       7'b0010011: /*ADDI*/
-       //if(inst_code[30] && inst_code[14]) // É SRAI
-	//Imm_out = {inst_code[24] ? 27'hFFFFF: 27'b0, inst_code[24:20]};
-       //else
+       if(inst_code[30] && inst_code[14]) // É SRAI
+	Imm_out = {inst_code[24] ? 27'hFFFFF: 27'b0, inst_code[24:20]};
+       else
         Imm_out = {inst_code[31] ? 20'hFFFFF : 20'b0, inst_code[31:20]};
 	
       7'b0110111: /*LUI*/

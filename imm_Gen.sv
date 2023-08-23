@@ -19,9 +19,6 @@ module imm_Gen (
       Imm_out = {inst_code[31:12], 12'b0};
 
       7'b0000011:  /*I-type load part*/
-      if(inst_code[14])
-      	Imm_out = {20'b0, inst_code[31:20]}; // Quer dizer que é LBU
-      else
 	Imm_out = {inst_code[31] ? 20'hFFFFF : 20'b0, inst_code[31:20]};
 
       7'b0100011:  /*S-type*/
