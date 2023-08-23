@@ -19,7 +19,7 @@ module Controller (
     output logic Branch  //0: branch is not taken; 1: branch is taken
 );
 
-  logic [6:0] R_TYPE, LW, SW, BR, I_TYPE, U_TYPE;
+    logic [6:0] R_TYPE, LW, SW, BR, I_TYPE, U_TYPE, JAL;
 
   assign R_TYPE = 7'b0110011;  //add,and
   assign LW = 7'b0000011;  //lw
@@ -27,6 +27,7 @@ module Controller (
   assign BR = 7'b1100011;  //beq
   assign I_TYPE = 7'b0010011; // addi, slli ...
   assign U_TYPE = 7'b0110111; // lui..
+    assign JAL = 7'b1101111; //jal
   
   assign ALUSrc = ((Opcode == LW) || (Opcode == SW) || (Opcode == I_TYPE) || (Opcode == U_TYPE));
   assign MemtoReg = (Opcode == LW);
@@ -35,6 +36,6 @@ module Controller (
   assign MemWrite = (Opcode == SW);
   assign ALUOp[0] = ((Opcode == BR) || (Opcode == U_TYPE));
   assign ALUOp[1] = ((Opcode == R_TYPE) || (Opcode == I_TYPE) || (Opcode == U_TYPE));
-  assign Branch = (Opcode == BR);
+    assign Branch = (Opcode == BR || Opcode == JAL);
 
 endmodule
